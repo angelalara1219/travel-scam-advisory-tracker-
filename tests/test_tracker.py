@@ -31,6 +31,17 @@ class ParserTests(unittest.TestCase):
         self.assertEqual(items[0].published, "2026-11-05")
         self.assertEqual(items[0].url, "https://www.ic3.gov/PSA/2026/PSA261105")
 
+    def test_scamwatch(self):
+        items = src.parse_scamwatch((FIX / "scamwatch.html").read_text())
+        self.assertEqual(len(items), 2)  # pager ignored
+        self.assertEqual(items[0].published, "2026-11-12")
+        self.assertIn("cancelled flights", items[0].summary)
+        self.assertTrue(items[0].url.startswith("https://www.scamwatch.gov.au/about-us/news-and-alerts/"))
+
+    def test_only_working_sources_are_scheduled(self):
+        keys = [s.key for s in src.ACTIVE_SOURCES]
+        self.assertEqual(keys, ["fbi_ic3", "au_scamwatch"])
+
     def test_empty_page_is_an_error(self):
         with self.assertRaises(src.ParseError):
             src.parse_ic3("<html><body>Maintenance</body></html>")

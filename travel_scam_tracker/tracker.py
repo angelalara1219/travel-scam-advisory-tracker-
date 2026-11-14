@@ -27,7 +27,7 @@ from datetime import date
 from pathlib import Path
 
 from .classify import CATEGORIES, classify
-from .sources import SOURCES, Advisory, Source, fetch, page_text
+from .sources import ACTIVE_SOURCES, SOURCES, Advisory, Source, fetch, page_text
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
@@ -191,7 +191,7 @@ def run() -> int:
     prev = {s.source: s for s in read_csv(STATUS_PATH, Status)}
 
     statuses, new_total, failures = [], 0, 0
-    for src in SOURCES:
+    for src in ACTIVE_SOURCES:
         old = prev.get(src.key)
         try:
             items = src.fetch_and_parse()
@@ -220,4 +220,4 @@ def run() -> int:
     update_readme(statuses, logged_all)
     print(f"New travel advisories logged: {new_total}")
     # only fail the job if every source failed
-    return 1 if failures == len(SOURCES) else 0
+    return 1 if failures == len(ACTIVE_SOURCES) else 0

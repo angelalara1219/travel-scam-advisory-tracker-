@@ -42,6 +42,7 @@ FTC_ALERTS_FALLBACKS = ["https://consumer.ftc.gov/blog", "https://www.consumer.f
 FTC_PRESS_RSS = "https://www.ftc.gov/feeds/press-release-consumer-protection.xml"
 FTC_PRESS_FALLBACKS = ["https://www.ftc.gov/feeds/press-release.xml"]
 IC3_PSA_URL = "https://www.ic3.gov/PSA"
+SCAMWATCH_URL = "https://www.scamwatch.gov.au/about-us/news-and-alerts"
 
 
 @dataclass
@@ -60,6 +61,7 @@ class Source:
     url: str
     fetch_and_parse: object = field(repr=False, default=None)
     reads_full_text: bool = True  # fetch each new advisory's page to match on body text
+    enabled: bool = True
 
 
 class ParseError(RuntimeError):
@@ -195,14 +197,51 @@ def parse_ic3(html: str, base: str = IC3_PSA_URL) -> list[Advisory]:
     return items
 
 
+# ---------------------------------------------------------------- Scamwatch (Australia)
+
+SCAMWATCH_HREF = re.compile(r"/about-us/news-and-alerts/[a-z0-9-]+/?$")
+DAY_MONTH_YEAR = re.compile(r"\b(\d{1,2}) (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]* (\d{4})\b")
+
+
+def parse_scamwatch(html: str, base: str = SCAMWATCH_URL) -> list[Advisory]:
+    soup = BeautifulSoup(html, "html.parser")
+    items = []
+    for a in soup.find_all("a", href=True):
+        href = a["href"].split("?")[0].split("#")[0]
+        title = clean(a.get_text())
+        if not SCAMWATCH_HREF.search(href) or len(title) < 8:
+            continue
+        published, summary = "", ""
+        card = a.find_parent(["article", "li", "div"])
+        if card:
+            text = clean(card.get_text(" "))
+            m = DAY_MONTH_YEAR.search(text)
+            if m:
+                published = datetime.strptime(f"{m.group(1)} {m.group(2)} {m.group(3)}", "%d %b %Y").date().isoformat()
+            summary = text.replace(title, "", 1)[:600]
+        items.append(Advisory(url=urljoin(base, href), title=title, published=published, summary=summary))
+    items = dedupe(items)
+    if not items:
+        raise ParseError("no news and alerts links found on the Scamwatch page")
+    return items
+
+
 # ---------------------------------------------------------------- registry
+# The FTC sources are switched off: the FTC's sites answer "404 Not Found" to
+# requests from GitHub's servers, even for pages that load fine in a browser.
+# The code stays so they can be switched back on if that changes, or run locally.
 
 SOURCES = [
     Source("ftc_alerts", "FTC Consumer Alerts", "Federal Trade Commission", FTC_ALERTS_URL,
-           lambda: fetch_first([FTC_ALERTS_URL, *FTC_ALERTS_FALLBACKS], parse_ftc_alerts)),
+           lambda: fetch_first([FTC_ALERTS_URL, *FTC_ALERTS_FALLBACKS], parse_ftc_alerts), enabled=False),
     Source("ftc_press", "FTC Consumer Protection News", "Federal Trade Commission",
            "https://www.ftc.gov/news-events/news/press-releases",
-           lambda: fetch_first([FTC_PRESS_RSS, *FTC_PRESS_FALLBACKS], parse_rss), reads_full_text=False),
+           lambda: fetch_first([FTC_PRESS_RSS, *FTC_PRESS_FALLBACKS], parse_rss), reads_full_text=False,
+           enabled=False),
     Source("fbi_ic3", "FBI IC3 PSAs", "FBI Internet Crime Complaint Center", IC3_PSA_URL,
            lambda: fetch_first([IC3_PSA_URL], parse_ic3)),
+    Source("au_scamwatch", "Scamwatch News and Alerts", "Scamwatch (ACCC, Australia)", SCAMWATCH_URL,
+           lambda: fetch_first([SCAMWATCH_URL], parse_scamwatch)),
 ]
+
+ACTIVE_SOURCES = [s for s in SOURCES if s.enabled]
