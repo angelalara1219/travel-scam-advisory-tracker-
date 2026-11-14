@@ -13,8 +13,9 @@ import re
 # Terms that make an advisory travel-related.
 TRAVEL_ANCHORS = [
     "airline", "airlines", "airfare", "flight", "flights", "air travel", "airport", "airports",
-    "boarding pass", "frequent flyer", "frequent flier", "travel", "traveling", "travelers",
-    "travellers", "vacation", "vacations", "vacation rental", "hotel", "hotels", "resort",
+    "boarding pass", "frequent flyer", "frequent flier", "travel", "traveling", "travelling",
+    "traveler", "travelers", "traveller", "travellers", "getaway", "accommodation",
+    "holiday accommodation", "holiday rental", "holiday booking", "holiday package", "holiday deal", "vacation", "vacations", "vacation rental", "hotel", "hotels", "resort",
     "timeshare", "timeshares", "cruise", "cruises", "passport", "passports", "real id", "tsa",
     "global entry", "rental car", "car rental", "booking site", "trip", "trips", "holiday travel",
     "travel visa", "visa application", "e-visa", "evisa", "travel agent", "tour", "tours", "itinerary",
@@ -40,6 +41,7 @@ CATEGORIES = {
     ],
     "Lodging, rentals and timeshares": [
         "hotel", "hotels", "vacation rental", "rental listing", "lodging", "resort", "timeshare",
+        "accommodation", "holiday rental", "holiday accommodation",
         "timeshares", "airbnb", "vrbo",
     ],
     "Phishing, texts and fake websites": [
@@ -69,7 +71,8 @@ _CATS = {c: [(t, _pattern(t)) for t in terms] for c, terms in CATEGORIES.items()
 # Words that show up in lots of non-travel scam alerts (a passport as proof of
 # identity, "trip" in "trip you up", a romance scammer "travelling for work").
 # In the title they count. In the body they only back up a core travel term.
-WEAK_ANCHORS = {"trip", "trips", "tour", "tours", "travel", "traveling", "travelers", "travellers",
+WEAK_ANCHORS = {"trip", "trips", "tour", "tours", "travel", "traveling", "travelling", "traveler",
+                "travelers", "traveller", "travellers", "accommodation",
                 "passport", "passports", "real id", "visa application", "travel visa", "tsa",
                 "itinerary", "holiday travel"}
 # Body text needs at least this many different core travel terms (flight,
