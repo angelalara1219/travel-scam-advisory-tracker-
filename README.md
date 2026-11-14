@@ -15,8 +15,8 @@ I wanted one place that pulls out just the travel-related ones and tags what kin
 <!-- STATUS:START -->
 | Source | Publisher | On page | Travel advisories logged | Last new | Last checked | Status |
 |---|---|---|---|---|---|---|
-| [FBI IC3 PSAs](https://www.ic3.gov/PSA) | FBI Internet Crime Complaint Center | 28 | 3 | 2026-11-14 | 2026-11-14 | OK |
-| [Scamwatch News and Alerts](https://www.scamwatch.gov.au/about-us/news-and-alerts) | Scamwatch (ACCC, Australia) | 10 | 1 | 2026-11-14 | 2026-11-14 | OK |
+| [FBI IC3 PSAs](https://www.ic3.gov/PSA) | FBI Internet Crime Complaint Center | 28 | 0 | - | 2026-11-14 | OK |
+| [Scamwatch News and Alerts](https://www.scamwatch.gov.au/about-us/news-and-alerts) | Scamwatch (ACCC, Australia) | 324 | 5 | 2026-11-14 | 2026-11-14 | OK |
 <!-- STATUS:END -->
 
 ## Latest travel advisories
@@ -24,10 +24,11 @@ I wanted one place that pulls out just the travel-related ones and tags what kin
 <!-- LATEST:START -->
 | Published | Source | Advisory | Scam type |
 |---|---|---|---|
-| - | Scamwatch News and Alerts | [Spot the signs of a relationship scam](https://www.scamwatch.gov.au/about-us/news-and-alerts/spot-the-signs-of-a-relationship-scam) | Cancellation, refund and rebooking; Documents and government services |
-| 2026-10-13 | FBI IC3 PSAs | [North Korean IT Workers Expanding Use of Facilitators, Broadening Recruitment](https://www.ic3.gov/PSA/2026/PSA261013) | Fake customer support; Documents and government services |
-| 2026-09-17 | FBI IC3 PSAs | [Scammers Impersonating Law Enforcement and Government Officials in Fraud Schemes](https://www.ic3.gov/PSA/2026/PSA260917) | Fake customer support; Phishing, texts and fake websites; Documents and government services |
-| 2026-06-16 | FBI IC3 PSAs | [Protect Your Property from Illegal Sales Through Parcel Owner Impersonation](https://www.ic3.gov/PSA/2026/PSA260616) | Fake customer support; Phishing, texts and fake websites |
+| 2026-02-09 | Scamwatch News and Alerts | [Scam alert: Qantas impersonation scam](https://www.scamwatch.gov.au/about-us/news-and-alerts/scam-alert-qantas-impersonation-scam) | Airline and ticket booking; Fake customer support; Cancellation, refund and rebooking; Loyalty miles and points; Phishing, texts and fake websites |
+| 2014-07-21 | Scamwatch News and Alerts | [Beware of scammers taking advantage of the Malaysia Airlines Flight MH17 tragedy](https://www.scamwatch.gov.au/about-us/news-and-alerts/beware-of-scammers-taking-advantage-of-the-malaysia-airlines-flight-mh17-tragedy) | Airline and ticket booking |
+| 2014-03-20 | Scamwatch News and Alerts | [Scammers using videos of Malaysian Airlines Flight MH370 to spread malware](https://www.scamwatch.gov.au/about-us/news-and-alerts/scammers-using-videos-of-malaysian-airlines-flight-mh370-to-spread-malware) | Airline and ticket booking |
+| 2012-12-06 | Scamwatch News and Alerts | [Watch out for fake flight itineraries landing in your inbox](https://www.scamwatch.gov.au/about-us/news-and-alerts/watch-out-for-fake-flight-itineraries-landing-in-your-inbox) | Airline and ticket booking |
+| 2008-08-12 | Scamwatch News and Alerts | [Airline ticketing scam emails which may cause computer viruses](https://www.scamwatch.gov.au/about-us/news-and-alerts/airline-ticketing-scam-emails-which-may-cause-computer-viruses) | Airline and ticket booking |
 <!-- LATEST:END -->
 
 Full log: [`data/advisories.csv`](data/advisories.csv)
@@ -37,13 +38,13 @@ Full log: [`data/advisories.csv`](data/advisories.csv)
 <!-- CATEGORIES:START -->
 | Scam type | Advisories |
 |---|---|
-| Airline and ticket booking | 0 |
-| Fake customer support | 3 |
+| Airline and ticket booking | 5 |
+| Fake customer support | 1 |
 | Cancellation, refund and rebooking | 1 |
-| Loyalty miles and points | 0 |
+| Loyalty miles and points | 1 |
 | Lodging, rentals and timeshares | 0 |
-| Phishing, texts and fake websites | 2 |
-| Documents and government services | 3 |
+| Phishing, texts and fake websites | 1 |
+| Documents and government services | 0 |
 | Travel deals and prizes | 0 |
 <!-- CATEGORIES:END -->
 
