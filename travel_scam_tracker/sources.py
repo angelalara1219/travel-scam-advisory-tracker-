@@ -62,6 +62,7 @@ class Source:
     fetch_and_parse: object = field(repr=False, default=None)
     reads_full_text: bool = True  # fetch each new advisory's page to match on body text
     enabled: bool = True
+    backfill: object = field(repr=False, default=None)  # older listing pages, read once on the first run
 
 
 class ParseError(RuntimeError):
@@ -212,17 +213,36 @@ def parse_scamwatch(html: str, base: str = SCAMWATCH_URL) -> list[Advisory]:
         if not SCAMWATCH_HREF.search(href) or len(title) < 8:
             continue
         published, summary = "", ""
-        card = a.find_parent(["article", "li", "div"])
-        if card:
+        # walk up a few levels to the listing card that holds the date and teaser
+        card = a
+        for _ in range(4):
+            card = card.parent
+            if card is None:
+                break
             text = clean(card.get_text(" "))
+            if len(text) > 1200:
+                break
             m = DAY_MONTH_YEAR.search(text)
+            summary = text.replace(title, "", 1)[:600]
             if m:
                 published = datetime.strptime(f"{m.group(1)} {m.group(2)} {m.group(3)}", "%d %b %Y").date().isoformat()
-            summary = text.replace(title, "", 1)[:600]
+                break
         items.append(Advisory(url=urljoin(base, href), title=title, published=published, summary=summary))
     items = dedupe(items)
     if not items:
         raise ParseError("no news and alerts links found on the Scamwatch page")
+    return items
+
+
+def scamwatch_archive(pages: int) -> list[Advisory]:
+    """Older Scamwatch listing pages. Stops at the first page that fails."""
+    items = []
+    for n in range(1, pages + 1):
+        try:
+            items.extend(parse_scamwatch(fetch(f"{SCAMWATCH_URL}?page={n}", attempts=2)))
+        except (requests.RequestException, ParseError):
+            break
+        time.sleep(1)
     return items
 
 
@@ -241,7 +261,8 @@ SOURCES = [
     Source("fbi_ic3", "FBI IC3 PSAs", "FBI Internet Crime Complaint Center", IC3_PSA_URL,
            lambda: fetch_first([IC3_PSA_URL], parse_ic3)),
     Source("au_scamwatch", "Scamwatch News and Alerts", "Scamwatch (ACCC, Australia)", SCAMWATCH_URL,
-           lambda: fetch_first([SCAMWATCH_URL], parse_scamwatch)),
+           lambda: fetch_first([SCAMWATCH_URL], parse_scamwatch),
+           backfill=lambda: scamwatch_archive(pages=40)),
 ]
 
 ACTIVE_SOURCES = [s for s in SOURCES if s.enabled]

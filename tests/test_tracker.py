@@ -71,11 +71,20 @@ class ClassifyTests(unittest.TestCase):
         ok, _, _ = classify("Imposter scams", "Don't let a scammer trip you up.")
         self.assertFalse(ok)
 
-    def test_strong_word_in_body_counts(self):
-        ok, cats, _ = classify("Imposter scams on the rise",
-                               "Some callers say your hotel reservation was canceled.")
+    def test_one_core_word_in_body_is_not_enough(self):
+        ok, _, _ = classify("Imposter scams on the rise",
+                            "Some callers say your hotel reservation was canceled.")
+        self.assertFalse(ok)
+
+    def test_passing_mention_of_passport_is_not_travel(self):
+        ok, _, _ = classify("Spot the signs of a relationship scam",
+                            "They may say they are travelling for work and ask you to pay for a passport.")
+        self.assertFalse(ok)
+
+    def test_two_core_terms_in_body_count(self):
+        ok, _, _ = classify("Scam alert: fake callback numbers",
+                            "Scammers pose as your airline or hotel when you search for help.")
         self.assertTrue(ok)
-        self.assertIn("Lodging, rentals and timeshares", cats)
 
     def test_loyalty(self):
         ok, cats, _ = classify("Criminals Impersonating Airlines to Steal Frequent Flyer Miles")
@@ -104,7 +113,7 @@ class TrackerTests(unittest.TestCase):
 
     def test_body_text_can_make_it_travel(self):
         def reader(url):
-            return "Scammers are texting travelers about a missed flight." if "student-loan" in url else ""
+            return "Scammers text about a missed flight and a hotel charge." if "student-loan" in url else ""
         logged, _ = t.process_source(self.source, self.items, set(), "2026-11-14", reader=reader)
         self.assertEqual(len(logged), 3)
 

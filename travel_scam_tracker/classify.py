@@ -66,10 +66,15 @@ def _pattern(term: str) -> re.Pattern:
 _ANCHORS = [(t, _pattern(t)) for t in TRAVEL_ANCHORS]
 _CATS = {c: [(t, _pattern(t)) for t in terms] for c, terms in CATEGORIES.items()}
 
-# Generic words that are too weak to make something travel-related on their own
-# when they only appear in body text (e.g. "trip" in "trip up", "tour" of a website).
-WEAK_ANCHORS = {"trip", "trips", "tour", "tours", "travel", "traveling"}
-MIN_WEAK_HITS = 2
+# Words that show up in lots of non-travel scam alerts (a passport as proof of
+# identity, "trip" in "trip you up", a romance scammer "travelling for work").
+# In the title they count. In the body they only back up a core travel term.
+WEAK_ANCHORS = {"trip", "trips", "tour", "tours", "travel", "traveling", "travelers", "travellers",
+                "passport", "passports", "real id", "visa application", "travel visa", "tsa",
+                "itinerary", "holiday travel"}
+# Body text needs at least this many different core travel terms (flight,
+# airline, hotel, cruise...) to qualify an advisory whose title doesn't.
+MIN_CORE_BODY_TERMS = 2
 
 
 def classify(title: str, text: str = "") -> tuple[bool, list[str], list[str]]:
@@ -80,10 +85,9 @@ def classify(title: str, text: str = "") -> tuple[bool, list[str], list[str]]:
 
     title_anchors = [t for t, p in _ANCHORS if p.search(title)]
     body_anchors = [t for t, p in _ANCHORS if p.search(body)]
-    strong_body = [t for t in body_anchors if t not in WEAK_ANCHORS]
-    weak_body_hits = sum(len(p.findall(body)) for t, p in _ANCHORS if t in WEAK_ANCHORS)
+    core_body = {t.rstrip("s") for t in body_anchors if t not in WEAK_ANCHORS}
 
-    is_travel = bool(title_anchors or strong_body or weak_body_hits >= MIN_WEAK_HITS)
+    is_travel = bool(title_anchors or len(core_body) >= MIN_CORE_BODY_TERMS)
     if not is_travel:
         return False, [], []
 

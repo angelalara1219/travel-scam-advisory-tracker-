@@ -23,11 +23,11 @@ import time
 import traceback
 from collections import Counter
 from dataclasses import dataclass, fields
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path
 
 from .classify import CATEGORIES, classify
-from .sources import ACTIVE_SOURCES, SOURCES, Advisory, Source, fetch, page_text
+from .sources import DAY_MONTH_YEAR, ACTIVE_SOURCES, SOURCES, Advisory, Source, fetch, page_text
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
@@ -113,6 +113,10 @@ def process_source(src: Source, items: list[Advisory], seen_urls: set[str], toda
             if PAUSE_SECONDS:
                 time.sleep(PAUSE_SECONDS)
         is_travel, cats, terms = classify(adv.title, text)
+        if not adv.published:
+            m = DAY_MONTH_YEAR.search(text or "")
+            if m:
+                adv.published = datetime.strptime(" ".join(m.groups()), "%d %b %Y").date().isoformat()
         newly_seen.append(Seen(adv.url, src.key, today, "yes" if is_travel else "no"))
         if is_travel:
             logged.append(Logged(today, adv.published, src.key, adv.title, adv.url,
@@ -195,6 +199,9 @@ def run() -> int:
         old = prev.get(src.key)
         try:
             items = src.fetch_and_parse()
+            first_run = not any(s.source == src.key for s in seen_all)
+            if first_run and src.backfill:
+                items = items + src.backfill()
             logged, newly_seen = process_source(src, items, seen_urls, today)
             logged_all.extend(logged)
             seen_all.extend(newly_seen)
