@@ -1,1 +1,1 @@
-# travel-scam-advisory-tracker-
+# travel-scam-advisory-tracker
