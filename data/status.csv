@@ -1,0 +1,4 @@
+source,label,publisher,url,on_page,travel_logged,last_checked,last_new,result
+ftc_alerts,FTC Consumer Alerts,Federal Trade Commission,https://consumer.ftc.gov/consumer-alerts,,0,2026-11-14,,HTTPError
+ftc_press,FTC Consumer Protection News,Federal Trade Commission,https://www.ftc.gov/news-events/news/press-releases,,0,2026-11-14,,HTTPError
+fbi_ic3,FBI IC3 PSAs,FBI Internet Crime Complaint Center,https://www.ic3.gov/PSA,28,3,2026-11-14,2026-11-14,ok
