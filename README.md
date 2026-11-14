@@ -15,9 +15,8 @@ I wanted one place that pulls out just the travel-related ones and tags what kin
 <!-- STATUS:START -->
 | Source | Publisher | On page | Travel advisories logged | Last new | Last checked | Status |
 |---|---|---|---|---|---|---|
-| [FTC Consumer Alerts](https://consumer.ftc.gov/consumer-alerts) | Federal Trade Commission | - | 0 | - | 2026-11-14 | Needs a look: HTTPError |
-| [FTC Consumer Protection News](https://www.ftc.gov/news-events/news/press-releases) | Federal Trade Commission | - | 0 | - | 2026-11-14 | Needs a look: HTTPError |
 | [FBI IC3 PSAs](https://www.ic3.gov/PSA) | FBI Internet Crime Complaint Center | 28 | 3 | 2026-11-14 | 2026-11-14 | OK |
+| [Scamwatch News and Alerts](https://www.scamwatch.gov.au/about-us/news-and-alerts) | Scamwatch (ACCC, Australia) | 10 | 1 | 2026-11-14 | 2026-11-14 | OK |
 <!-- STATUS:END -->
 
 ## Latest travel advisories
@@ -25,6 +24,7 @@ I wanted one place that pulls out just the travel-related ones and tags what kin
 <!-- LATEST:START -->
 | Published | Source | Advisory | Scam type |
 |---|---|---|---|
+| - | Scamwatch News and Alerts | [Spot the signs of a relationship scam](https://www.scamwatch.gov.au/about-us/news-and-alerts/spot-the-signs-of-a-relationship-scam) | Cancellation, refund and rebooking; Documents and government services |
 | 2026-10-13 | FBI IC3 PSAs | [North Korean IT Workers Expanding Use of Facilitators, Broadening Recruitment](https://www.ic3.gov/PSA/2026/PSA261013) | Fake customer support; Documents and government services |
 | 2026-09-17 | FBI IC3 PSAs | [Scammers Impersonating Law Enforcement and Government Officials in Fraud Schemes](https://www.ic3.gov/PSA/2026/PSA260917) | Fake customer support; Phishing, texts and fake websites; Documents and government services |
 | 2026-06-16 | FBI IC3 PSAs | [Protect Your Property from Illegal Sales Through Parcel Owner Impersonation](https://www.ic3.gov/PSA/2026/PSA260616) | Fake customer support; Phishing, texts and fake websites |
@@ -39,11 +39,11 @@ Full log: [`data/advisories.csv`](data/advisories.csv)
 |---|---|
 | Airline and ticket booking | 0 |
 | Fake customer support | 3 |
-| Cancellation, refund and rebooking | 0 |
+| Cancellation, refund and rebooking | 1 |
 | Loyalty miles and points | 0 |
 | Lodging, rentals and timeshares | 0 |
 | Phishing, texts and fake websites | 2 |
-| Documents and government services | 2 |
+| Documents and government services | 3 |
 | Travel deals and prizes | 0 |
 <!-- CATEGORIES:END -->
 
