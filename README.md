@@ -1,6 +1,6 @@
 # Travel Scam Advisory Tracker
 
-A small, self-updating log of travel-related scam warnings from the FTC and the FBI: fake airline customer service numbers, rebooking and refund scams, stolen frequent flyer miles, fake vacation rentals, timeshare resale schemes, and more.
+A small, self-updating log of travel-related scam warnings from government fraud agencies in the US and Australia: airline impersonation, fake booking and itinerary emails, rebooking and refund scams, stolen frequent flyer points, fake rentals and accommodation, and more.
 
 ## Why I built this
 
@@ -57,15 +57,16 @@ An advisory can have more than one type. A fake-support-number warning about can
 
 ## Sources
 
-- **FTC Consumer Alerts:** the FTC's plain-language scam warnings for consumers.
-- **FTC Consumer Protection news:** FTC enforcement actions and settlements, which show what schemes regulators are actually going after.
-- **FBI IC3 Public Service Announcements:** the FBI Internet Crime Complaint Center's alerts on active fraud schemes.
+- **FBI IC3 Public Service Announcements (US):** the FBI Internet Crime Complaint Center's alerts on active fraud schemes.
+- **Scamwatch News and Alerts (Australia):** the ACCC's National Anti-Scam Centre warnings, going back to 2008. The first run read the full archive, so the log starts with real history.
+
+**About the FTC:** the FTC's Consumer Alerts are the best US source for travel scam warnings, and the code to read them is included. But the FTC's sites answer "404 Not Found" to automated requests from GitHub's servers, even for pages that load fine in a browser, so those sources are switched off in the scheduled run. They're set with `enabled=False` in [`sources.py`](travel_scam_tracker/sources.py) and can be turned back on if that changes.
 
 ## How it decides what's "travel"
 
 [`travel_scam_tracker/classify.py`](travel_scam_tracker/classify.py) uses two steps:
 
-1. **Is it about travel?** The advisory has to mention a travel term like flight, airline, hotel, vacation rental, cruise, passport, or TSA. Generic words like "trip" or "tour" only count if they show up more than once, so "don't let a scammer trip you up" doesn't qualify.
+1. **Is it about travel?** A travel term in the title (flight, airline, hotel, cruise, holiday accommodation, travelling) qualifies it. In the body, it takes at least two different core travel terms. Words that appear in lots of unrelated alerts, like "passport" used as proof of identity or a romance scammer "travelling for work," don't count on their own. The first version of this tracker logged identity and romance scams that mentioned a passport in passing, and this rule is the fix.
 2. **What kind of scam is it?** Travel advisories are then tagged by scam type: airline and ticket booking, fake customer support, cancellations and refunds, loyalty miles and points, lodging and timeshares, phishing and fake websites, travel documents, and travel deals and prizes.
 
 A refund scam that has nothing to do with travel isn't logged. The keyword lists are short and readable on purpose, so it's easy to see why something was or wasn't included.
@@ -78,7 +79,7 @@ A refund scam that has nothing to do with travel isn't logged. The keyword lists
 |---|---|
 | `first_seen` | The date this tracker picked it up |
 | `published` | The publication date (month only, if that's all the source shows) |
-| `source` | `ftc_alerts`, `ftc_press`, or `fbi_ic3` |
+| `source` | `fbi_ic3` or `au_scamwatch` |
 | `title` | The advisory's title |
 | `url` | Link to the original |
 | `categories` | Scam types, separated by semicolons |
@@ -89,9 +90,9 @@ A refund scam that has nothing to do with travel isn't logged. The keyword lists
 ## How it works
 
 ```
-FTC Consumer Alerts page ──┐
-FTC press release feed ────┼─> sources.py ─> classify.py ─> tracker.py ─> advisories.csv ─> README tables
-FBI IC3 PSA page ──────────┘                                    ▲
+FBI IC3 PSA page ──────────┐
+                           ├─> sources.py ─> classify.py ─> tracker.py ─> advisories.csv ─> README tables
+Scamwatch news and alerts ─┘                                    ▲
                                                                 └── GitHub Action, every weekday
 ```
 
@@ -119,7 +120,7 @@ You can also kick off a run from the **Actions** tab with **Run workflow**.
 
 - Public government sources only. Nothing here comes from any employer or non-public source.
 - This is a monitoring convenience, not legal advice. Always read the original advisory.
-- Possible next additions: the FCC's scam glossary, the BBB Scam Tracker, and the UK's Action Fraud alerts.
+- Possible next additions: the Canadian Anti-Fraud Centre, the UK's Action Fraud alerts, and the FTC again if its sites start accepting automated requests.
 
 ## Related projects
 
