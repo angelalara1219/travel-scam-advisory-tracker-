@@ -16,7 +16,7 @@ I wanted one place that pulls out just the travel-related ones and tags what kin
 | Source | Publisher | On page | Travel advisories logged | Last new | Last checked | Status |
 |---|---|---|---|---|---|---|
 | [FBI IC3 PSAs](https://www.ic3.gov/PSA) | FBI Internet Crime Complaint Center | 28 | 0 | - | 2026-11-14 | OK |
-| [Scamwatch News and Alerts](https://www.scamwatch.gov.au/about-us/news-and-alerts) | Scamwatch (ACCC, Australia) | 324 | 5 | 2026-11-14 | 2026-11-14 | OK |
+| [Scamwatch News and Alerts](https://www.scamwatch.gov.au/about-us/news-and-alerts) | Scamwatch (ACCC, Australia) | 324 | 10 | 2026-11-14 | 2026-11-14 | OK |
 <!-- STATUS:END -->
 
 ## Latest travel advisories
@@ -27,7 +27,12 @@ I wanted one place that pulls out just the travel-related ones and tags what kin
 | 2026-02-09 | Scamwatch News and Alerts | [Scam alert: Qantas impersonation scam](https://www.scamwatch.gov.au/about-us/news-and-alerts/scam-alert-qantas-impersonation-scam) | Airline and ticket booking; Fake customer support; Cancellation, refund and rebooking; Loyalty miles and points; Phishing, texts and fake websites |
 | 2014-07-21 | Scamwatch News and Alerts | [Beware of scammers taking advantage of the Malaysia Airlines Flight MH17 tragedy](https://www.scamwatch.gov.au/about-us/news-and-alerts/beware-of-scammers-taking-advantage-of-the-malaysia-airlines-flight-mh17-tragedy) | Airline and ticket booking |
 | 2014-03-20 | Scamwatch News and Alerts | [Scammers using videos of Malaysian Airlines Flight MH370 to spread malware](https://www.scamwatch.gov.au/about-us/news-and-alerts/scammers-using-videos-of-malaysian-airlines-flight-mh370-to-spread-malware) | Airline and ticket booking |
+| 2013-05-09 | Scamwatch News and Alerts | [Watch out when booking your winter getaway](https://www.scamwatch.gov.au/about-us/news-and-alerts/watch-out-when-booking-your-winter-getaway) | Airline and ticket booking |
 | 2012-12-06 | Scamwatch News and Alerts | [Watch out for fake flight itineraries landing in your inbox](https://www.scamwatch.gov.au/about-us/news-and-alerts/watch-out-for-fake-flight-itineraries-landing-in-your-inbox) | Airline and ticket booking |
+| 2011-11-02 | Scamwatch News and Alerts | [Avoid 2012 London Olympics accommodation scams](https://www.scamwatch.gov.au/about-us/news-and-alerts/avoid-2012-london-olympics-accommodation-scams) | Airline and ticket booking; Lodging, rentals and timeshares |
+| 2009-11-24 | Scamwatch News and Alerts | [Discount holiday accommodation vouchers](https://www.scamwatch.gov.au/about-us/news-and-alerts/discount-holiday-accommodation-vouchers) | Cancellation, refund and rebooking; Lodging, rentals and timeshares |
+| 2009-11-11 | Scamwatch News and Alerts | [Travelling to the USA?](https://www.scamwatch.gov.au/about-us/news-and-alerts/travelling-to-the-usa) | - |
+| 2008-08-20 | Scamwatch News and Alerts | [Fake rental properties and shared accommodation listings](https://www.scamwatch.gov.au/about-us/news-and-alerts/fake-rental-properties-and-shared-accommodation-listings) | Lodging, rentals and timeshares |
 | 2008-08-12 | Scamwatch News and Alerts | [Airline ticketing scam emails which may cause computer viruses](https://www.scamwatch.gov.au/about-us/news-and-alerts/airline-ticketing-scam-emails-which-may-cause-computer-viruses) | Airline and ticket booking |
 <!-- LATEST:END -->
 
@@ -38,11 +43,11 @@ Full log: [`data/advisories.csv`](data/advisories.csv)
 <!-- CATEGORIES:START -->
 | Scam type | Advisories |
 |---|---|
-| Airline and ticket booking | 5 |
+| Airline and ticket booking | 7 |
 | Fake customer support | 1 |
-| Cancellation, refund and rebooking | 1 |
+| Cancellation, refund and rebooking | 2 |
 | Loyalty miles and points | 1 |
-| Lodging, rentals and timeshares | 0 |
+| Lodging, rentals and timeshares | 3 |
 | Phishing, texts and fake websites | 1 |
 | Documents and government services | 0 |
 | Travel deals and prizes | 0 |
