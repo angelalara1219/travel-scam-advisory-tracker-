@@ -25,15 +25,22 @@ from urllib.parse import urljoin
 import requests
 from bs4 import BeautifulSoup
 
-HEADERS = {
+# Some government sites answer a plain script differently from a browser, and
+# vice versa, so fetch_first() tries both before giving up.
+SCRIPT_HEADERS = {"User-Agent": "travel-scam-advisory-tracker/1.0 (public-data research script)"}
+BROWSER_HEADERS = {
     "User-Agent": ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
                    "(KHTML, like Gecko) Chrome/130.0 Safari/537.36"),
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
     "Accept-Language": "en-US,en;q=0.9",
 }
+HEADERS = BROWSER_HEADERS
 
 FTC_ALERTS_URL = "https://consumer.ftc.gov/consumer-alerts"
+# Same alerts, other pages that list them, tried in order if the main one fails.
+FTC_ALERTS_FALLBACKS = ["https://consumer.ftc.gov/blog", "https://www.consumer.ftc.gov/consumer-alerts"]
 FTC_PRESS_RSS = "https://www.ftc.gov/feeds/press-release-consumer-protection.xml"
+FTC_PRESS_FALLBACKS = ["https://www.ftc.gov/feeds/press-release.xml"]
 IC3_PSA_URL = "https://www.ic3.gov/PSA"
 
 
@@ -61,10 +68,10 @@ class ParseError(RuntimeError):
 
 # ---------------------------------------------------------------- helpers
 
-def fetch(url: str, attempts: int = 3) -> str:
+def fetch(url: str, attempts: int = 3, headers: dict | None = None) -> str:
     for attempt in range(1, attempts + 1):
         try:
-            resp = requests.get(url, headers=HEADERS, timeout=(30, 90))
+            resp = requests.get(url, headers=headers or HEADERS, timeout=(30, 90))
             resp.raise_for_status()
             break
         except (requests.Timeout, requests.ConnectionError):
@@ -73,6 +80,19 @@ def fetch(url: str, attempts: int = 3) -> str:
             time.sleep(10 * attempt)
     resp.encoding = resp.encoding or "utf-8"
     return resp.text
+
+
+def fetch_first(urls: list[str], parse):
+    """Try each URL with browser-style and then script-style headers, and
+    return the first one that downloads and parses. Raises the last error."""
+    last = None
+    for url in urls:
+        for headers in (BROWSER_HEADERS, SCRIPT_HEADERS):
+            try:
+                return parse(fetch(url, attempts=2, headers=headers))
+            except (requests.RequestException, ParseError) as exc:
+                last = exc
+    raise last
 
 
 def clean(text) -> str:
@@ -179,10 +199,10 @@ def parse_ic3(html: str, base: str = IC3_PSA_URL) -> list[Advisory]:
 
 SOURCES = [
     Source("ftc_alerts", "FTC Consumer Alerts", "Federal Trade Commission", FTC_ALERTS_URL,
-           lambda: parse_ftc_alerts(fetch(FTC_ALERTS_URL))),
+           lambda: fetch_first([FTC_ALERTS_URL, *FTC_ALERTS_FALLBACKS], parse_ftc_alerts)),
     Source("ftc_press", "FTC Consumer Protection News", "Federal Trade Commission",
            "https://www.ftc.gov/news-events/news/press-releases",
-           lambda: parse_rss(fetch(FTC_PRESS_RSS)), reads_full_text=False),
+           lambda: fetch_first([FTC_PRESS_RSS, *FTC_PRESS_FALLBACKS], parse_rss), reads_full_text=False),
     Source("fbi_ic3", "FBI IC3 PSAs", "FBI Internet Crime Complaint Center", IC3_PSA_URL,
-           lambda: parse_ic3(fetch(IC3_PSA_URL))),
+           lambda: fetch_first([IC3_PSA_URL], parse_ic3)),
 ]
