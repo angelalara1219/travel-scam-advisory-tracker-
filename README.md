@@ -15,8 +15,8 @@ I wanted one place that pulls out just the travel-related ones and tags what kin
 <!-- STATUS:START -->
 | Source | Publisher | On page | Travel advisories logged | Last new | Last checked | Status |
 |---|---|---|---|---|---|---|
-| [FBI IC3 PSAs](https://www.ic3.gov/PSA) | FBI Internet Crime Complaint Center | 28 | 0 | - | 2026-11-14 | OK |
-| [Scamwatch News and Alerts](https://www.scamwatch.gov.au/about-us/news-and-alerts) | Scamwatch (ACCC, Australia) | 324 | 10 | 2026-11-14 | 2026-11-14 | OK |
+| [FBI IC3 PSAs](https://www.ic3.gov/PSA) | FBI Internet Crime Complaint Center | 28 | 0 | - | 2026-11-16 | OK |
+| [Scamwatch News and Alerts](https://www.scamwatch.gov.au/about-us/news-and-alerts) | Scamwatch (ACCC, Australia) | 10 | 11 | 2026-11-16 | 2026-11-16 | OK |
 <!-- STATUS:END -->
 
 A 0 means the source is being checked but hasn't posted a travel-related warning, not that it's broken. The FBI's PSAs mostly cover ransomware, investment, and impersonation fraud, so travel alerts there are rare.
@@ -26,10 +26,11 @@ A 0 means the source is being checked but hasn't posted a travel-related warning
 Travel scam warnings come in waves around holidays, major events, and airline disruptions, so this list includes the full Scamwatch archive back to 2008, not just this year.
 
 <!-- LATEST:START -->
-**10 travel advisories logged**, published 2008 to 2026. Most recent: 2026-02-09.
+**11 travel advisories logged**, published 2008 to 2026. Most recent: 2026-11-16.
 
 | Published | Source | Advisory | Scam type |
 |---|---|---|---|
+| 2026-11-16 | Scamwatch News and Alerts | [Scam alert: Scammers don't take holidays - but they can ruin yours](https://www.scamwatch.gov.au/about-us/news-and-alerts/scam-alert-scammers-dont-take-holidays-but-they-can-ruin-yours) | Airline and ticket booking; Fake customer support; Cancellation, refund and rebooking; Loyalty miles and points; Lodging, rentals and timeshares; Documents and government services |
 | 2026-02-09 | Scamwatch News and Alerts | [Scam alert: Qantas impersonation scam](https://www.scamwatch.gov.au/about-us/news-and-alerts/scam-alert-qantas-impersonation-scam) | Airline and ticket booking; Fake customer support; Cancellation, refund and rebooking; Loyalty miles and points; Phishing, texts and fake websites |
 | 2014-07-21 | Scamwatch News and Alerts | [Beware of scammers taking advantage of the Malaysia Airlines Flight MH17 tragedy](https://www.scamwatch.gov.au/about-us/news-and-alerts/beware-of-scammers-taking-advantage-of-the-malaysia-airlines-flight-mh17-tragedy) | Airline and ticket booking |
 | 2014-03-20 | Scamwatch News and Alerts | [Scammers using videos of Malaysian Airlines Flight MH370 to spread malware](https://www.scamwatch.gov.au/about-us/news-and-alerts/scammers-using-videos-of-malaysian-airlines-flight-mh370-to-spread-malware) | Airline and ticket booking |
@@ -49,13 +50,13 @@ Full log: [`data/advisories.csv`](data/advisories.csv)
 <!-- CATEGORIES:START -->
 | Scam type | Advisories |
 |---|---|
-| Airline and ticket booking | 7 |
-| Fake customer support | 1 |
-| Cancellation, refund and rebooking | 2 |
-| Loyalty miles and points | 1 |
-| Lodging, rentals and timeshares | 3 |
+| Airline and ticket booking | 8 |
+| Fake customer support | 2 |
+| Cancellation, refund and rebooking | 3 |
+| Loyalty miles and points | 2 |
+| Lodging, rentals and timeshares | 4 |
 | Phishing, texts and fake websites | 1 |
-| Documents and government services | 0 |
+| Documents and government services | 1 |
 | Travel deals and prizes | 0 |
 <!-- CATEGORIES:END -->
 
