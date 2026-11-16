@@ -19,9 +19,15 @@ I wanted one place that pulls out just the travel-related ones and tags what kin
 | [Scamwatch News and Alerts](https://www.scamwatch.gov.au/about-us/news-and-alerts) | Scamwatch (ACCC, Australia) | 324 | 10 | 2026-11-14 | 2026-11-14 | OK |
 <!-- STATUS:END -->
 
-## Latest travel advisories
+A 0 means the source is being checked but hasn't posted a travel-related warning, not that it's broken. The FBI's PSAs mostly cover ransomware, investment, and impersonation fraud, so travel alerts there are rare.
+
+## Travel advisories, newest first
+
+Travel scam warnings come in waves around holidays, major events, and airline disruptions, so this list includes the full Scamwatch archive back to 2008, not just this year.
 
 <!-- LATEST:START -->
+**10 travel advisories logged**, published 2008 to 2026. Most recent: 2026-02-09.
+
 | Published | Source | Advisory | Scam type |
 |---|---|---|---|
 | 2026-02-09 | Scamwatch News and Alerts | [Scam alert: Qantas impersonation scam](https://www.scamwatch.gov.au/about-us/news-and-alerts/scam-alert-qantas-impersonation-scam) | Airline and ticket booking; Fake customer support; Cancellation, refund and rebooking; Loyalty miles and points; Phishing, texts and fake websites |
@@ -124,7 +130,6 @@ You can also kick off a run from the **Actions** tab with **Run workflow**.
 
 ## Related projects
 
-- [Airline Disruption Fraud Monitor](https://github.com/angelalara1219/airline-disruption-fraud-monitor): detecting and staffing for a loyalty-fraud spike during a ground stop
 - [Sanctions List Tracker](https://github.com/angelalara1219/sanctions-list-tracker)
 
 ## License

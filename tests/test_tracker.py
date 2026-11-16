@@ -143,6 +143,16 @@ class TrackerTests(unittest.TestCase):
         self.assertTrue(out.startswith("top") and out.rstrip().endswith("bottom"))
         self.assertNotIn("old", out)
 
+    def test_latest_table_summary_shows_span_and_most_recent(self):
+        def row(pub, title):
+            return t.Logged("2026-11-14", pub, "au_scamwatch", title, f"https://x/{title}", "", "")
+        rows = [row("2009-11-24", "a"), row("2026-02-09", "b"), row("2014-07-21", "c")]
+        out = t.latest_table(rows, n=2)
+        self.assertTrue(out.startswith("**3 travel advisories logged**, published 2009 to 2026. "
+                                       "Most recent: 2026-02-09."))
+        self.assertIn("Showing the 2 newest", out)
+        self.assertNotIn("/a)", out)
+
 
 if __name__ == "__main__":
     unittest.main()

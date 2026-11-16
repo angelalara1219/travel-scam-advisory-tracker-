@@ -150,8 +150,17 @@ def status_table(statuses: list[Status]) -> str:
 def latest_table(rows: list[Logged], n: int = 15) -> str:
     if not rows:
         return "_Nothing logged yet. The first scheduled run will fill this in._"
-    rows = sorted(rows, key=lambda r: (r.published or r.first_seen, r.first_seen), reverse=True)[:n]
-    lines = ["| Published | Source | Advisory | Scam type |", "|---|---|---|---|"]
+    rows = sorted(rows, key=lambda r: (r.published or r.first_seen, r.first_seen), reverse=True)
+    dated = [r.published for r in rows if r.published]
+    summary = f"**{len(rows)} travel advisor{'y' if len(rows) == 1 else 'ies'} logged**"
+    if dated:
+        newest, oldest = max(dated), min(dated)
+        span = newest[:4] if newest[:4] == oldest[:4] else f"{oldest[:4]} to {newest[:4]}"
+        summary += f", published {span}. Most recent: {newest}."
+    if len(rows) > n:
+        summary += f" Showing the {n} newest; the rest are in the full log."
+    rows = rows[:n]
+    lines = [summary, "", "| Published | Source | Advisory | Scam type |", "|---|---|---|---|"]
     for r in rows:
         lines.append(f"| {r.published or '-'} | {LABELS.get(r.source, r.source)} | "
                      f"[{md(r.title)}]({r.url}) | {md(r.categories) or '-'} |")
