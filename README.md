@@ -15,8 +15,8 @@ I wanted one place that pulls out just the travel-related ones and tags what kin
 <!-- STATUS:START -->
 | Source | Publisher | On page | Travel advisories logged | Last new | Last checked | Status |
 |---|---|---|---|---|---|---|
-| [FBI IC3 PSAs](https://www.ic3.gov/PSA) | FBI Internet Crime Complaint Center | 28 | 0 | - | 2026-11-16 | OK |
-| [Scamwatch News and Alerts](https://www.scamwatch.gov.au/about-us/news-and-alerts) | Scamwatch (ACCC, Australia) | 10 | 11 | 2026-11-16 | 2026-11-16 | OK |
+| [FBI IC3 PSAs](https://www.ic3.gov/PSA) | FBI Internet Crime Complaint Center | 28 | 0 | - | 2026-11-17 | OK |
+| [Scamwatch News and Alerts](https://www.scamwatch.gov.au/about-us/news-and-alerts) | Scamwatch (ACCC, Australia) | 10 | 11 | 2026-11-16 | 2026-11-17 | OK |
 <!-- STATUS:END -->
 
 A 0 means the source is being checked but hasn't posted a travel-related warning, not that it's broken. The FBI's PSAs mostly cover ransomware, investment, and impersonation fraud, so travel alerts there are rare.
